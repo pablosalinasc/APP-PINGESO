@@ -1,0 +1,17 @@
+/* AUTOMATICALLY GENERATED ON Fri Apr 08 00:17:16 CLT 2016*/
+/* DO NOT EDIT */
+
+grant {
+  permission javax.security.jacc.EJBMethodPermission "UsuarioFacade", "count,Local,";
+  permission javax.security.jacc.EJBMethodPermission "UsuarioFacade", "find,Local,java.lang.Object";
+  permission javax.security.jacc.EJBMethodPermission "UsuarioFacade", "findRange,Local,int[]";
+  permission javax.security.jacc.EJBMethodPermission "UsuarioFacade", "create,Local,entities.Usuario";
+  permission javax.security.jacc.EJBMethodPermission "UsuarioFacade", "edit,Local,entities.Usuario";
+  permission javax.security.jacc.EJBMethodPermission "UsuarioFacade", "remove,Local,entities.Usuario";
+  permission javax.security.jacc.EJBMethodPermission "UsuarioFacade", "findAll,Local,";
+};
+
+grant      principal * * {
+  permission javax.security.jacc.EJBRoleRefPermission "UsuarioFacade", "**";
+};
+

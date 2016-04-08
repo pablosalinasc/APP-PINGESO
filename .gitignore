@@ -45,3 +45,6 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+/Tutorial mysql/Tutorial_mysql-ear/target/
+/Tutorial mysql/Tutorial_mysql-ejb/target/
+/Tutorial mysql/Tutorial_mysql-web/target/
