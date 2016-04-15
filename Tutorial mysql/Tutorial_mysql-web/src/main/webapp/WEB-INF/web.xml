@@ -23,7 +23,7 @@
     </welcome-file-list>
     <login-config>
         <auth-method>FORM</auth-method>
-        <realm-name>tutorialRealm</realm-name>
+        <realm-name>tutorialMysqlRealm</realm-name>
         <form-login-config>
             <form-login-page>/faces/index.xhtml</form-login-page>
             <form-error-page>/faces/error.xhtml</form-error-page>

@@ -26,7 +26,11 @@
                             <f:selectItem itemLabel="Rol 2" itemValue="Rol 2" noSelectionOption="false" />
                             <f:selectItem itemLabel="Rol 3" itemValue="Rol 3" noSelectionOption="false" />
                         </p:selectOneMenu>
-                        
+                        <p:outputLabel for="curso" value="Curso: " />
+                        <p:selectOneMenu id="curso" value="#{usuarioController.selected.curso}">
+                            <f:selectItem itemLabel="Seleccione un curso" itemValue="" noSelectionOption="true" />
+                            <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.nombre}" itemValue="#{curso}"/>
+                        </p:selectOneMenu>
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>

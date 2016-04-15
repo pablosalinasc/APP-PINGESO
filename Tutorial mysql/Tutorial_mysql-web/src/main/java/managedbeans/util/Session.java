@@ -57,22 +57,44 @@ public class Session {
         try{
             request.login(this.correo, this.password);
         }catch(ServletException e){
-            System.out.println("e");
+            System.out.println("Error al loguear");
             context.addMessage(null,new FacesMessage("Login failed."));
             System.out.println("Intento de inicio de sesión\n- Correo: "+this.correo+"\n- Password: "+this.password);
-            return "error";
+            return "/faces/error.xhtml";
         }
-        return "home";
+        return "/faces/home.xhtml";
     }
     
-    public void logout(){
+    public String logout(){
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try{
             request.logout();
+            return "/faces/index.xhtml";
         }catch(ServletException e){
             context.addMessage(null,new FacesMessage("Logout failed."));
+            return "/faces/home.xhtml";
         }
+    }
+
+    public boolean verifyLogin(){
+        boolean verify= false;
+        try {//prueba
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) 
+            context.getExternalContext().getRequest();//obtengo el contexto en el servidor
+            
+             if(request.getRemoteUser() == null){//si el usuario no esta logueado
+                 verify=false;//retorna falso
+             }
+             else{//sino esta logueado y retorna verdadero
+                 verify=true;
+             }
+             
+        } catch (Exception e) {//si hay algun error
+            verify = false;//retorna falso
+        }
+        return verify;
     }
     
         private String sha256(String base){
