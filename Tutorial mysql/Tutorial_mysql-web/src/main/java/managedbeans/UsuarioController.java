@@ -28,8 +28,30 @@ public class UsuarioController implements Serializable {
     private List<Usuario> items = null;
     private Usuario selected;
 
+    private String old_password = "";
+    private String new_password = "";
+
+   
     public UsuarioController() {
     }
+
+    public String getOld_password() {
+        return old_password;
+    }
+
+    public void setOld_password(String old_password) {
+        this.old_password = old_password;
+    }
+
+    public String getNew_password() {
+        return new_password;
+    }
+
+    public void setNew_password(String new_password) {
+        this.new_password = new_password;
+    }
+    
+
 
     public Usuario getSelected() {
         return selected;
@@ -63,6 +85,15 @@ public class UsuarioController implements Serializable {
     }
 
     public void update() {
+        if (new_password.length() > 0) {
+            boolean succes = selected.cambiarPassword(old_password, new_password);
+
+            if (succes) {
+                JsfUtil.addSuccessMessage("Contraseña cambiada con éxito");
+            } else {
+                JsfUtil.addErrorMessage("No se pudo cambiar la contraseña");
+            }
+        }
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
     }
 

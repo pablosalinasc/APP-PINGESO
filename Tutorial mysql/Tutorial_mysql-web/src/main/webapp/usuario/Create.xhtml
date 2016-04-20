@@ -13,12 +13,16 @@
             <h:form id="UsuarioCreateForm">
                 <h:panelGroup id="display">
                     <p:panelGrid columns="2" rendered="#{usuarioController.selected != null}">
+                        
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_nombre}" for="nombre" />
                         <p:inputText id="nombre" value="#{usuarioController.selected.nombre}" title="#{bundle.CreateUsuarioTitle_nombre}" />
+                        
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_correo}" for="correo" />
                         <p:inputText id="correo" value="#{usuarioController.selected.correo}" title="#{bundle.CreateUsuarioTitle_correo}" />
+                        
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_password}" for="password" />
                         <p:password id="password" value="#{usuarioController.selected.password}" title="#{bundle.CreateUsuarioTitle_password}" />
+                        
                         <p:outputLabel value="#{bundle.CreateUsuarioLabel_rol}" for="rol" />
                         <p:selectOneMenu id="rol" value="#{usuarioController.selected.rol}" style="width:150px">
                             <f:selectItem itemLabel="Seleccione un rol" itemValue="" noSelectionOption="true" />
@@ -26,11 +30,13 @@
                             <f:selectItem itemLabel="Rol 2" itemValue="Rol 2" noSelectionOption="false" />
                             <f:selectItem itemLabel="Rol 3" itemValue="Rol 3" noSelectionOption="false" />
                         </p:selectOneMenu>
+                        
                         <p:outputLabel for="curso" value="Curso: " />
                         <p:selectOneMenu id="curso" value="#{usuarioController.selected.curso}">
                             <f:selectItem itemLabel="Seleccione un curso" itemValue="" noSelectionOption="true" />
                             <f:selectItems value="#{cursoController.items}" var="curso" itemLabel="#{curso.nombre}" itemValue="#{curso}"/>
                         </p:selectOneMenu>
+                        
                     </p:panelGrid>
                     <p:commandButton actionListener="#{usuarioController.create}" value="#{bundle.Save}" update="display,:UsuarioListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioCreateDialog');"/>
                     <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioCreateDialog.hide()"/>

@@ -12,7 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -27,12 +29,15 @@ public class Usuario implements Serializable {
     @Column(name="id_usuario")
     private Long id;
     
+    @NotNull(message="Debe ingresar un correo")
     @Column(name="correo_usuario")
     private String correo;
     
+    @NotNull(message="Debe ingresar una contraseña")
     @Column(name="password_usuario")
     private String password;
 
+    @NotNull(message="Debe ingresar un nombre")
     @Column(name="nombre_usuario")
     private String nombre;
 
@@ -40,6 +45,7 @@ public class Usuario implements Serializable {
     private String rol;
     
     @ManyToOne
+    @JoinColumn(name = "curso_usuario")
     private Curso curso;
 
     public Curso getCurso() {
@@ -75,6 +81,14 @@ public class Usuario implements Serializable {
         this.password = this.sha256(password);
     }
 
+    public boolean cambiarPassword(String old_password, String new_password) {
+        if (sha256(old_password).compareTo(this.password) == 0) {
+            setPassword(new_password);
+            return true;
+        }
+        return false;
+    }
+    
     public String getNombre() {
         return nombre;
     }
