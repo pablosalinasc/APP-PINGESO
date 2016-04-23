@@ -17,7 +17,8 @@ import static org.junit.Assert.*;
  * @author calde
  */
 public class UsuarioTest {
-    
+    private Usuario usuario;
+    private Curso curso;
     public UsuarioTest() {
     }
     
@@ -31,6 +32,14 @@ public class UsuarioTest {
     
     @Before
     public void setUp() {
+        usuario = new Usuario();
+        curso = new Curso();
+        usuario.setCorreo("correo");
+        usuario.setCurso(curso);
+        usuario.setId(Long.MIN_VALUE);
+        usuario.setNombre("nombre");
+        usuario.setPassword("");
+        usuario.setRol("rol");
     }
     
     @After
@@ -43,9 +52,8 @@ public class UsuarioTest {
     @Test
     public void testGetCurso() {
         System.out.println("getCurso");
-        Usuario instance = new Usuario();
-        Curso expResult = null;
-        Curso result = instance.getCurso();
+        Curso expResult = curso;
+        Curso result = usuario.getCurso();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -56,9 +64,8 @@ public class UsuarioTest {
     @Test
     public void testSetCurso() {
         System.out.println("setCurso");
-        Curso curso = null;
-        Usuario instance = new Usuario();
-        instance.setCurso(curso);
+        usuario.setCurso(curso);
+        assertNotNull(usuario.getCurso());
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -68,10 +75,8 @@ public class UsuarioTest {
     @Test
     public void testGetRol() {
         System.out.println("getRol");
-        Usuario instance = new Usuario();
-        String expResult = "";
-        instance.setRol("");
-        String result = instance.getRol();
+        String expResult = "rol";
+        String result = usuario.getRol();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -83,8 +88,8 @@ public class UsuarioTest {
     public void testSetRol() {
         System.out.println("setRol");
         String rol = "";
-        Usuario instance = new Usuario();
-        instance.setRol(rol);
+        usuario.setRol(rol);
+        assertNotNull(usuario.getRol());
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -94,9 +99,9 @@ public class UsuarioTest {
     @Test
     public void testGetCorreo() {
         System.out.println("getCorreo");
-        Usuario instance = new Usuario();
-        String expResult = "";
-        String result = instance.getCorreo();
+        String expResult = "correo";
+        String result = usuario.getCorreo();
+        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -107,8 +112,8 @@ public class UsuarioTest {
     public void testSetCorreo() {
         System.out.println("setCorreo");
         String correo = "";
-        Usuario instance = new Usuario();
-        instance.setCorreo(correo);
+        usuario.setCorreo(correo);
+        assertNotNull(usuario.getCorreo());
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -118,10 +123,8 @@ public class UsuarioTest {
     @Test
     public void testGetPassword() {
         System.out.println("getPassword");
-        Usuario instance = new Usuario();
-        instance.setPassword("");
         String expResult = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
-        String result = instance.getPassword();
+        String result = usuario.getPassword();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
         
@@ -134,10 +137,9 @@ public class UsuarioTest {
     public void testSetPassword() {
         System.out.println("setPassword");
         String password = "";
-        Usuario instance = new Usuario();
-        instance.setPassword(password);
+        usuario.setPassword(password);
+        assertNotNull(usuario.getPassword());
         // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     /**
@@ -147,11 +149,9 @@ public class UsuarioTest {
     public void testCambiarPassword() {
         System.out.println("cambiarPassword");
         String old_password = "";
-        String new_password = "";
-        Usuario instance = new Usuario();
-        instance.setPassword(old_password);
+        String new_password = "1";
         boolean expResult = true;
-        boolean result = instance.cambiarPassword(old_password, new_password);
+        boolean result = usuario.cambiarPassword(old_password, new_password);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -162,10 +162,8 @@ public class UsuarioTest {
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
-        Usuario instance = new Usuario();
-        instance.setNombre("");
-        String expResult = "";
-        String result = instance.getNombre();
+        String expResult = "nombre";
+        String result = usuario.getNombre();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -176,9 +174,9 @@ public class UsuarioTest {
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
-        String nombre = "";
-        Usuario instance = new Usuario();
-        instance.setNombre(nombre);
+        String nombre = "nombre2";
+        usuario.setNombre(nombre);
+        assertNotNull(usuario.getNombre());
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -188,9 +186,8 @@ public class UsuarioTest {
     @Test
     public void testGetId() {
         System.out.println("getId");
-        Usuario instance = new Usuario();
-        Long expResult = null;
-        Long result = instance.getId();
+        Long expResult = Long.MIN_VALUE;
+        Long result = usuario.getId();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -201,9 +198,10 @@ public class UsuarioTest {
     @Test
     public void testSetId() {
         System.out.println("setId");
-        Long id = null;
-        Usuario instance = new Usuario();
-        instance.setId(id);
+        Long id = Long.MAX_VALUE;
+        usuario.setId(id);
+        assertNotNull(usuario.getId());
+        
         // TODO review the generated test code and remove the default call to fail.
     }
 
@@ -213,9 +211,8 @@ public class UsuarioTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Usuario instance = new Usuario();
-        int expResult = 0;
-        int result = instance.hashCode();
+        int expResult = -2147483648;
+        int result = usuario.hashCode();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -227,9 +224,8 @@ public class UsuarioTest {
     public void testEquals() {
         System.out.println("equals");
         Object object = null;
-        Usuario instance = new Usuario();
         boolean expResult = false;
-        boolean result = instance.equals(object);
+        boolean result = usuario.equals(object);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -240,10 +236,8 @@ public class UsuarioTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Usuario instance = new Usuario();
-        instance.setId(Long.MIN_VALUE);
         String expResult = "entities.Usuario[ id=-9223372036854775808 ]";
-        String result = instance.toString();
+        String result = usuario.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }

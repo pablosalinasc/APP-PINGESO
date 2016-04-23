@@ -17,6 +17,7 @@ import static org.junit.Assert.*;
  * @author calde
  */
 public class CursoTest {
+    private Curso curso;
     
     public CursoTest() {
     }
@@ -31,6 +32,9 @@ public class CursoTest {
     
     @Before
     public void setUp() {
+        curso = new Curso();
+        curso.setId(Long.MIN_VALUE);
+        curso.setNombre("nombre");
     }
     
     @After
@@ -43,10 +47,8 @@ public class CursoTest {
     @Test
     public void testGetNombre() {
         System.out.println("getNombre");
-        Curso instance = new Curso();
-        instance.setNombre("");
-        String expResult = "";
-        String result = instance.getNombre();
+        String expResult = "nombre";
+        String result = curso.getNombre();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -57,10 +59,9 @@ public class CursoTest {
     @Test
     public void testSetNombre() {
         System.out.println("setNombre");
-        String nombre = "";
-        Curso instance = new Curso();
-        instance.setNombre(nombre);
-        // TODO review the generated test code and remove the default call to fail.
+        String nombre = "nombre2";
+        curso.setNombre(nombre);
+        assertNotNull(curso.getNombre());
     }
 
     /**
@@ -70,10 +71,9 @@ public class CursoTest {
     public void testGetId() {
         System.out.println("getId");
         Curso instance = new Curso();
-        Long expResult = null;
-        Long result = instance.getId();
+        Long expResult = Long.MIN_VALUE;
+        Long result = curso.getId();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
     }
 
     /**
@@ -82,10 +82,9 @@ public class CursoTest {
     @Test
     public void testSetId() {
         System.out.println("setId");
-        Long id = null;
-        Curso instance = new Curso();
-        instance.setId(id);
-        // TODO review the generated test code and remove the default call to fail.
+        Long id = Long.MAX_VALUE;
+        curso.setId(id);
+        assertNotNull(curso.getId());
     }
 
     /**
@@ -94,9 +93,8 @@ public class CursoTest {
     @Test
     public void testHashCode() {
         System.out.println("hashCode");
-        Curso instance = new Curso();
-        int expResult = 0;
-        int result = instance.hashCode();
+        int expResult = -2147483648;
+        int result = curso.hashCode();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -108,9 +106,8 @@ public class CursoTest {
     public void testEquals() {
         System.out.println("equals");
         Object object = null;
-        Curso instance = new Curso();
         boolean expResult = false;
-        boolean result = instance.equals(object);
+        boolean result = curso.equals(object);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
@@ -121,10 +118,8 @@ public class CursoTest {
     @Test
     public void testToString() {
         System.out.println("toString");
-        Curso instance = new Curso();
-        instance.setId(Long.MIN_VALUE);
         String expResult = "entities.Curso[ id=-9223372036854775808 ]";
-        String result = instance.toString();
+        String result = curso.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
     }
