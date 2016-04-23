@@ -44,11 +44,11 @@ public class CursoTest {
     public void testGetNombre() {
         System.out.println("getNombre");
         Curso instance = new Curso();
+        instance.setNombre("");
         String expResult = "";
         String result = instance.getNombre();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -61,7 +61,6 @@ public class CursoTest {
         Curso instance = new Curso();
         instance.setNombre(nombre);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -75,7 +74,6 @@ public class CursoTest {
         Long result = instance.getId();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -88,7 +86,6 @@ public class CursoTest {
         Curso instance = new Curso();
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -102,7 +99,6 @@ public class CursoTest {
         int result = instance.hashCode();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -117,7 +113,6 @@ public class CursoTest {
         boolean result = instance.equals(object);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -127,11 +122,11 @@ public class CursoTest {
     public void testToString() {
         System.out.println("toString");
         Curso instance = new Curso();
-        String expResult = "";
+        instance.setId(Long.MIN_VALUE);
+        String expResult = "entities.Curso[ id=-9223372036854775808 ]";
         String result = instance.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

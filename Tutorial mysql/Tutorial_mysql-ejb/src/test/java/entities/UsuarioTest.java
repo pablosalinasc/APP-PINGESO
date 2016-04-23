@@ -48,7 +48,6 @@ public class UsuarioTest {
         Curso result = instance.getCurso();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -61,7 +60,6 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setCurso(curso);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -72,10 +70,10 @@ public class UsuarioTest {
         System.out.println("getRol");
         Usuario instance = new Usuario();
         String expResult = "";
+        instance.setRol("");
         String result = instance.getRol();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -88,7 +86,6 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setRol(rol);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -100,9 +97,7 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         String expResult = "";
         String result = instance.getCorreo();
-        assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -115,7 +110,6 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setCorreo(correo);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -125,11 +119,12 @@ public class UsuarioTest {
     public void testGetPassword() {
         System.out.println("getPassword");
         Usuario instance = new Usuario();
-        String expResult = "";
+        instance.setPassword("");
+        String expResult = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
         String result = instance.getPassword();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        
     }
 
     /**
@@ -142,7 +137,7 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setPassword(password);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        //fail("The test case is a prototype.");
     }
 
     /**
@@ -154,11 +149,11 @@ public class UsuarioTest {
         String old_password = "";
         String new_password = "";
         Usuario instance = new Usuario();
-        boolean expResult = false;
+        instance.setPassword(old_password);
+        boolean expResult = true;
         boolean result = instance.cambiarPassword(old_password, new_password);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -168,11 +163,11 @@ public class UsuarioTest {
     public void testGetNombre() {
         System.out.println("getNombre");
         Usuario instance = new Usuario();
+        instance.setNombre("");
         String expResult = "";
         String result = instance.getNombre();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -185,7 +180,6 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setNombre(nombre);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -199,7 +193,6 @@ public class UsuarioTest {
         Long result = instance.getId();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -212,7 +205,6 @@ public class UsuarioTest {
         Usuario instance = new Usuario();
         instance.setId(id);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -226,7 +218,6 @@ public class UsuarioTest {
         int result = instance.hashCode();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -241,7 +232,6 @@ public class UsuarioTest {
         boolean result = instance.equals(object);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
 
     /**
@@ -251,11 +241,11 @@ public class UsuarioTest {
     public void testToString() {
         System.out.println("toString");
         Usuario instance = new Usuario();
-        String expResult = "";
+        instance.setId(Long.MIN_VALUE);
+        String expResult = "entities.Usuario[ id=-9223372036854775808 ]";
         String result = instance.toString();
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
