@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
 /**
  *
@@ -33,7 +34,7 @@ public class UsuarioTest {
     @Before
     public void setUp() {
         usuario = new Usuario();
-        curso = new Curso();
+        curso = mock(Curso.class);
         usuario.setCorreo("correo");
         usuario.setCurso(curso);
         usuario.setId(Long.MIN_VALUE);
