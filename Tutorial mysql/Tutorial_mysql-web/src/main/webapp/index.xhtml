@@ -4,7 +4,9 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:b="http://bootsfaces.net/ui">
+
 
     <ui:composition template="/template.xhtml">
 
@@ -18,21 +20,39 @@
             <br/>
             <h:form>
                 <p:growl id="growl" sticky="true" showDetail="true" life="3000" />
-                <p:panel header="#{bundle.LoginTitle}" style="margin-bottom:20px;max-width: 300px;margin: 0 auto;">
-                    <h:panelGrid columns="2" cellpadding="10">
-                        <h:outputLabel for="Correo">
-                            #{bundle.correo_login}
-                        </h:outputLabel>
-                        <h:inputText id="Correo" value="#{login.correo}" required="true"/>
-                        <h:outputLabel for="Password">
-                            #{bundle.password_login}
-                        </h:outputLabel>
-                        <h:inputSecret id="Password" value="#{login.password}" required="true" />
-                    </h:panelGrid>
-                    <f:facet name="footer">
-                        <h:commandButton value="${bundle.submit_login}" style="min-height: 30px;min-width: 80px;margin: 0 auto;" action="#{login.login}"/>
-                    </f:facet>
-                </p:panel>
+                <b:row>
+                    <b:column span="4" offset="4">
+                    <b:panel look="primary" title="#{bundle.LoginTitle}">
+                        <b:row>
+                            <b:column  span="4">
+                                <h:outputLabel for="Correo" value="#{bundle.correo_login}" />
+                            </b:column>
+                            <b:column span="8">
+                                <b:inputText id="Correo" value="#{login.correo}" placeholder="Correo" required="true">
+                                  <f:facet name="prepend">
+                                    <b:icon name="user" />
+                                  </f:facet>
+                                </b:inputText>
+                            </b:column>
+                        </b:row>
+                        <b:row>
+                            <b:column span="4">
+                            <h:outputLabel for="Password" value="#{bundle.password_login}" />
+                            </b:column>
+                            <b:column span="8">
+                                <b:inputSecret id="Password" value="#{login.password}" placeholder="Contraseña" required="true">
+                                    <f:facet name="prepend">
+                                      <b:iconAwesome name="key" />
+                                    </f:facet>
+                                </b:inputSecret>
+                            </b:column>
+                        </b:row>
+                        <f:facet name="footer">
+                            <b:commandButton look="primary" value="${bundle.submit_login}" style="min-height: 30px;min-width: 80px;margin: 0 auto;" action="#{login.login}"/>
+                        </f:facet>
+                    </b:panel>
+                    </b:column>
+                </b:row>
             </h:form>
         <br/>
         
