@@ -1,13 +1,11 @@
 package managedbeans;
 
-import entities.Curso;
+import entities.Auditoria;
 import managedbeans.util.JsfUtil;
 import managedbeans.util.JsfUtil.PersistAction;
-import sessionbeans.CursoFacadeLocal;
+import sessionbeans.AuditoriaFacadeLocal;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -22,34 +20,36 @@ import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 import javax.inject.Inject;
 
-@Named("cursoController")
+@Named("auditoriaController")
 @SessionScoped
-public class CursoController implements Serializable {
-
-    @EJB
-    private sessionbeans.CursoFacadeLocal ejbFacade;
-    private List<Curso> items = null;
-    private Curso selected;
-    private Curso antiguovalor;    
+public class AuditoriaController implements Serializable {
     @Inject
-    private AuditoriaController auditoriaCtrl;
+    private LoginController loginCtrl;
+    @EJB
+    private AuditoriaFacadeLocal ejbFacade;
+    private List<Auditoria> items = null;
+    private Auditoria selected;
 
-    public AuditoriaController getAuditoriaCtrl() {
-        return auditoriaCtrl;
+    public AuditoriaController() {
     }
 
-    public void setAuditoriaCtrl(AuditoriaController auditoriaCtrl) {
-        this.auditoriaCtrl = auditoriaCtrl;
+    public void ObtenerCorreo(){
+        selected.setCorreo(loginCtrl.getCorreo());
     }
     
-    public CursoController() {
+    public LoginController getLoginCtrl() {
+        return loginCtrl;
     }
 
-    public Curso getSelected() {
+    public void setLoginCtrl(LoginController loginCtrl) {
+        this.loginCtrl = loginCtrl;
+    }
+
+    public Auditoria getSelected() {
         return selected;
     }
 
-    public void setSelected(Curso selected) {
+    public void setSelected(Auditoria selected) {
         this.selected = selected;
     }
 
@@ -59,68 +59,36 @@ public class CursoController implements Serializable {
     protected void initializeEmbeddableKey() {
     }
 
-    private CursoFacadeLocal getFacade() {
+    private AuditoriaFacadeLocal getFacade() {
         return ejbFacade;
     }
 
-    public Curso prepareCreate() {
-        selected = new Curso();
+    public Auditoria prepareCreate() {
+        selected = new Auditoria();
         initializeEmbeddableKey();
         return selected;
     }
-    
-    public void prepareUpdate() {
-        antiguovalor = new Curso();
-        antiguovalor.setNombre(selected.getNombre());
-    }
-    
-    public void auditoria(String antiguo, String nuevo, String operacion) {
-        auditoriaCtrl.prepareCreate();
-        auditoriaCtrl.getSelected().setAntiguoValor(antiguo);
-        auditoriaCtrl.getSelected().setNuevoValor(nuevo);
-        auditoriaCtrl.getSelected().setOperacion(operacion);
-        auditoriaCtrl.getSelected().setTabla("Curso");
-        auditoriaCtrl.ObtenerCorreo();
-        Date date = new Date();
-        long time = date.getTime();
-        Timestamp ts = new Timestamp(time);
-        auditoriaCtrl.getSelected().setFecha(ts);
-        auditoriaCtrl.create();
-    }    
-    
+
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CursoCreated"));
+        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("AuditoriaCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
-        String nuevo;
-        nuevo = " ( Nombre: " + selected.getNombre() + " )";
-        auditoria("No existía", nuevo, "Crear");
     }
 
     public void update() {
-        prepareUpdate();
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CursoUpdated"));
-        String antiguo;
-        String nuevo;
-        antiguo = " ( Nombre: " + antiguovalor.getNombre() + " )";
-        nuevo = " ( Nombre: " + selected.getNombre() + " )";
-        auditoria(antiguo, nuevo, "Editar");
-        
+        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("AuditoriaUpdated"));
     }
 
     public void destroy() {
-        String antiguo;
-        antiguo = " ( Nombre: " + antiguovalor.getNombre() + " )";
-        auditoria(antiguo, "No existe", "Eliminar");
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("CursoDeleted"));
+        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("AuditoriaDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
-    public List<Curso> getItems() {
+    public List<Auditoria> getItems() {
         if (items == null) {
             items = getFacade().findAll();
         }
@@ -155,29 +123,29 @@ public class CursoController implements Serializable {
         }
     }
 
-    public Curso getCurso(java.lang.Long id) {
+    public Auditoria getAuditoria(java.lang.Long id) {
         return getFacade().find(id);
     }
 
-    public List<Curso> getItemsAvailableSelectMany() {
+    public List<Auditoria> getItemsAvailableSelectMany() {
         return getFacade().findAll();
     }
 
-    public List<Curso> getItemsAvailableSelectOne() {
+    public List<Auditoria> getItemsAvailableSelectOne() {
         return getFacade().findAll();
     }
 
-    @FacesConverter(forClass = Curso.class)
-    public static class CursoControllerConverter implements Converter {
+    @FacesConverter(forClass = Auditoria.class)
+    public static class AuditoriaControllerConverter implements Converter {
 
         @Override
         public Object getAsObject(FacesContext facesContext, UIComponent component, String value) {
             if (value == null || value.length() == 0) {
                 return null;
             }
-            CursoController controller = (CursoController) facesContext.getApplication().getELResolver().
-                    getValue(facesContext.getELContext(), null, "cursoController");
-            return controller.getCurso(getKey(value));
+            AuditoriaController controller = (AuditoriaController) facesContext.getApplication().getELResolver().
+                    getValue(facesContext.getELContext(), null, "auditoriaController");
+            return controller.getAuditoria(getKey(value));
         }
 
         java.lang.Long getKey(String value) {
@@ -197,11 +165,11 @@ public class CursoController implements Serializable {
             if (object == null) {
                 return null;
             }
-            if (object instanceof Curso) {
-                Curso o = (Curso) object;
+            if (object instanceof Auditoria) {
+                Auditoria o = (Auditoria) object;
                 return getStringKey(o.getId());
             } else {
-                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Curso.class.getName()});
+                Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "object {0} is of type {1}; expected type: {2}", new Object[]{object, object.getClass().getName(), Auditoria.class.getName()});
                 return null;
             }
         }
