@@ -22,11 +22,12 @@
             <p:layoutUnit position="north" style="padding:0px;margin: 0px; border: 0px;" gutter="0">
                 <b:navBar brand="#{bundle.AppName}">
                             <b:navbarLinks>
-                                <b:navLink rendered="#{not login.verifyLogin()}" value="#{bundle.Home}" outcome="/index" icon="glyphicon glyphicon-home"/>
-                                <b:navLink rendered="#{login.verifyLogin()}" value="#{bundle.Home}" outcome="/home" icon="glyphicon glyphicon-home"/>
+                                <b:navLink rendered="#{not loginController.verifyLogin()}" value="#{bundle.Home}" outcome="/index" icon="glyphicon glyphicon-home"/>
+                                <b:navLink rendered="#{loginController.verifyLogin()}" value="#{bundle.Home}" outcome="/home" icon="glyphicon glyphicon-home"/>
                                 <b:dropMenu value="#{bundle.seccion1}">
                                     <b:navLink value="Usuarios" outcome="/usuario/List.xhtml" />
                                     <b:navLink value="Cursos" outcome="/curso/List.xhtml" />
+                                    <b:navLink value="Auditoría" outcome="/auditoria/List.xhtml" />
                                 </b:dropMenu>
                                 <b:dropMenu value="#{bundle.seccion2}">
                                     <b:navLink value="Template" outcome="/template.xhtml" />
@@ -37,8 +38,8 @@
                             </b:navbarLinks>
                             <b:navbarLinks pull="right"><b:navLink value="    " href="#"></b:navLink></b:navbarLinks>
                             <b:navbarLinks pull="right">
-                                <h:form rendered="#{login.verifyLogin()}">
-                                    <b:commandButton look="Info" value="${bundle.submit_logout}" style="vertical-align: middle;" action="#{login.logout}"  icon="glyphicon glyphicon-off" />
+                                <h:form rendered="#{loginController.verifyLogin()}">
+                                    <b:commandButton look="Info" value="${bundle.submit_logout}" style="vertical-align: middle;" action="#{loginController.logout}"  icon="glyphicon glyphicon-off" />
                                 </h:form>
                             </b:navbarLinks>
                         </b:navBar>

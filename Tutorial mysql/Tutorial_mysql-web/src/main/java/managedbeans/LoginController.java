@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package managedbeans.util;
+package managedbeans;
 
 import java.security.MessageDigest;
 import javax.annotation.PostConstruct;
@@ -11,6 +11,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,15 +19,16 @@ import javax.servlet.http.HttpServletRequest;
  *
  * @author obi
  */
-@Named(value = "login")
+@Named(value = "loginController")
 @RequestScoped
-public class Session {
+public class LoginController {
 
     private String correo;
     private String password;
+    @Inject
+    private UsuarioController userCtrl;
     
-    
-    public Session() {
+    public LoginController() {
     }
     
     @PostConstruct

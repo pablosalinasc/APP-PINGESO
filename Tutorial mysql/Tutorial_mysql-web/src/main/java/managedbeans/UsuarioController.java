@@ -6,6 +6,8 @@ import managedbeans.util.JsfUtil.PersistAction;
 import sessionbeans.UsuarioFacadeLocal;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -18,6 +20,7 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
+import javax.inject.Inject;
 
 @Named("usuarioController")
 @SessionScoped
@@ -27,11 +30,21 @@ public class UsuarioController implements Serializable {
     private sessionbeans.UsuarioFacadeLocal ejbFacade;
     private List<Usuario> items = null;
     private Usuario selected;
-
+    private Usuario antiguovalor;
     private String old_password = "";
     private String new_password = "";
 
-   
+       @Inject
+    private AuditoriaController auditoriaCtrl;
+
+    public AuditoriaController getAuditoriaCtrl() {
+        return auditoriaCtrl;
+    }
+
+    public void setAuditoriaCtrl(AuditoriaController auditoriaCtrl) {
+        this.auditoriaCtrl = auditoriaCtrl;
+    }
+       
     public UsuarioController() {
     }
 
@@ -77,14 +90,41 @@ public class UsuarioController implements Serializable {
         return selected;
     }
 
+    public void prepareUpdate() {
+        antiguovalor = new Usuario();
+        antiguovalor.setNombre(selected.getNombre());
+        antiguovalor.setCorreo(selected.getCorreo());
+        antiguovalor.setPassword(selected.getPassword());
+        antiguovalor.setRol(selected.getRol());
+        antiguovalor.setCurso(selected.getCurso());
+    }
+    
+    public void auditoria(String antiguo, String nuevo, String operacion) {
+        auditoriaCtrl.prepareCreate();
+        auditoriaCtrl.getSelected().setAntiguoValor(antiguo);
+        auditoriaCtrl.getSelected().setNuevoValor(nuevo);
+        auditoriaCtrl.getSelected().setOperacion(operacion);
+        auditoriaCtrl.getSelected().setTabla("Usuario");
+        auditoriaCtrl.ObtenerCorreo();
+        Date date = new Date();
+        long time = date.getTime();
+        Timestamp ts = new Timestamp(time);
+        auditoriaCtrl.getSelected().setFecha(ts);
+        auditoriaCtrl.create();
+    }
+    
     public void create() {
         persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioCreated"));
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
+        String nuevo;
+        nuevo = " ( Nombre: " + selected.getNombre() + " , Correo: " + selected.getCorreo() + " , Contraseña: " + selected.getPassword()+ " , Rol: " + selected.getRol()+ " , Carrera: " + selected.getCurso().getNombre() + " )";
+        auditoria("No existía", nuevo, "Crear");
     }
 
     public void update() {
+        prepareUpdate();
         if (new_password.length() > 0) {
             boolean succes = selected.cambiarPassword(old_password, new_password);
 
@@ -95,9 +135,17 @@ public class UsuarioController implements Serializable {
             }
         }
         persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("UsuarioUpdated"));
+        String antiguo;
+        String nuevo;
+        antiguo = " ( Nombre: " + antiguovalor.getNombre() + " , Correo: " + antiguovalor.getCorreo() + " , Contraseña: " + antiguovalor.getPassword() + " , Rol: " + antiguovalor.getRol()+ " , Carrera: " + antiguovalor.getCurso().getNombre() + " )";
+        nuevo = " ( Nombre: " + selected.getNombre() + " , Correo: " + selected.getCorreo() + " , Contraseña: " + selected.getPassword()+ " , Rol: " + selected.getRol()+ " , Carrera: " + selected.getCurso().getNombre() + " )";
+        auditoria(antiguo, nuevo, "Editar");
     }
 
     public void destroy() {
+        String antiguo;
+        antiguo = " ( Nombre: " + selected.getNombre() + " , Correo: " + selected.getCorreo() + " , Contraseña: " + selected.getPassword()+ " , Rol: " + selected.getRol()+ " , Carrera: " + selected.getCurso().getNombre() + " )";
+        auditoria(antiguo, "No existe", "Eliminar");
         persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("UsuarioDeleted"));
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection

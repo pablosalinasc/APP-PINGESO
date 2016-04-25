@@ -28,7 +28,7 @@
                                 <h:outputLabel for="Correo" value="#{bundle.correo_login}" />
                             </b:column>
                             <b:column span="8">
-                                <b:inputText id="Correo" value="#{login.correo}" placeholder="Correo" required="true">
+                                <b:inputText id="Correo" value="#{loginController.correo}" placeholder="Correo" required="true">
                                   <f:facet name="prepend">
                                     <b:icon name="user" />
                                   </f:facet>
@@ -40,7 +40,7 @@
                             <h:outputLabel for="Password" value="#{bundle.password_login}" />
                             </b:column>
                             <b:column span="8">
-                                <b:inputSecret id="Password" value="#{login.password}" placeholder="Contraseña" required="true">
+                                <b:inputSecret id="Password" value="#{loginController.password}" placeholder="Contraseña" required="true">
                                     <f:facet name="prepend">
                                       <b:iconAwesome name="key" />
                                     </f:facet>
@@ -48,7 +48,7 @@
                             </b:column>
                         </b:row>
                         <f:facet name="footer">
-                            <b:commandButton look="primary" value="${bundle.submit_login}" style="min-height: 30px;min-width: 80px;margin: 0 auto;" action="#{login.login}"/>
+                            <b:commandButton look="primary" value="${bundle.submit_login}" style="min-height: 30px;min-width: 80px;margin: 0 auto;" action="#{loginController.login}"/>
                         </f:facet>
                     </b:panel>
                     </b:column>
