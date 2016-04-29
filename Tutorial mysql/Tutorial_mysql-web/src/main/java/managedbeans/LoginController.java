@@ -5,6 +5,7 @@
  */
 package managedbeans;
 
+import entities.Usuario;
 import java.security.MessageDigest;
 import javax.annotation.PostConstruct;
 import javax.inject.Named;
@@ -27,6 +28,24 @@ public class LoginController {
     private String password;
     @Inject
     private UsuarioController userCtrl;
+    
+    private Usuario usuarioLogueado=null;
+
+    public UsuarioController getUserCtrl() {
+        return userCtrl;
+    }
+
+    public void setUserCtrl(UsuarioController userCtrl) {
+        this.userCtrl = userCtrl;
+    }
+
+    public Usuario getUsuarioLogueado() {
+        return usuarioLogueado;
+    }
+
+    public void setUsuarioLogueado(Usuario usuarioLogueado) {
+        this.usuarioLogueado = usuarioLogueado;
+    }
     
     public LoginController() {
     }
@@ -54,17 +73,33 @@ public class LoginController {
     
     
     public String login(){
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         try{
-            request.login(this.correo, this.password);
-        }catch(ServletException e){
-            System.out.println("Error al loguear");
-            context.addMessage(null,new FacesMessage("Login failed."));
-            System.out.println("Intento de inicio de sesión\n- Correo: "+this.correo+"\n- Password: "+this.password);
-            return "/faces/error.xhtml";
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            Usuario usuario;
+            usuario = userCtrl.findByCorreo(this.correo);
+            if (usuario == null) {
+                context.addMessage(null, new FacesMessage("El usuario no existe"));
+                return "/faces/index.xhtml";
+            }else{
+                if (request.getRemoteUser() == null) {
+                    try {
+                        request.login(this.correo, this.password);
+                        usuarioLogueado = new Usuario(usuario);
+                        context.addMessage(null, new FacesMessage("Usuario autentificado correctamente"));
+                    } catch (ServletException e) {
+                        context.addMessage(null, new FacesMessage("El correo y la contraseña ingresados no coinciden"));
+                        return "/faces/index.xhtml";
+                    }
+                } else {
+                    //usuario ya logueado
+                    context.addMessage(null, new FacesMessage("Usuario ya autentificado"));
+                }
+                return "/faces/home.xhtml";
+            }
+        }catch(Exception e){
+            return "/faces/index.xhtml";
         }
-        return "/faces/home.xhtml";
     }
     
     public String logout(){

@@ -34,7 +34,7 @@ public class AuditoriaController implements Serializable {
     }
 
     public void ObtenerCorreo(){
-        selected.setCorreo(loginCtrl.getCorreo());
+        selected.setCorreo(loginCtrl.getUsuarioLogueado().getCorreo());
     }
     
     public LoginController getLoginCtrl() {

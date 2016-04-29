@@ -7,6 +7,7 @@ import sessionbeans.UsuarioFacadeLocal;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -29,11 +30,12 @@ public class UsuarioController implements Serializable {
     @EJB
     private sessionbeans.UsuarioFacadeLocal ejbFacade;
     private List<Usuario> items = null;
+    private List<Usuario> todos = null;
     private Usuario selected;
     private Usuario antiguovalor;
     private String old_password = "";
     private String new_password = "";
-
+    
        @Inject
     private AuditoriaController auditoriaCtrl;
 
@@ -153,6 +155,25 @@ public class UsuarioController implements Serializable {
         }
     }
 
+    public Usuario findByCorreo(String correo) {
+        getAllItems();//todos los items
+        for (Usuario item : todos) {//para cada item de Preingreso de la bd
+            if (correo.equals(item.getCorreo())) {//si el objeto a comparar es igual al rut de entrada
+                setSelected(item);
+                return item;//se retorna
+            }
+        }
+        return null;//si no se encuentra retorna nulo
+    }
+    
+    public List<Usuario> getAllItems() {
+        todos = getFacade().findAll();
+        if (todos == null) {
+            todos = new ArrayList<Usuario>();
+        }
+        return todos;
+    }
+    
     public List<Usuario> getItems() {
         if (items == null) {
             items = getFacade().findAll();
